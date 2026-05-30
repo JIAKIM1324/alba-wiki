@@ -17,6 +17,7 @@ type Community = {
 export default function Home() {
   const [communities, setCommunities] = useState<Community[]>([])
   const [keyword, setKeyword] = useState('')
+  const [recentPosts, setRecentPosts] = useState<any[]>([])
 
   useEffect(() => {
     async function loadCommunities() {
@@ -31,6 +32,20 @@ export default function Home() {
         .order('name', { ascending: true })
 
       setCommunities(data || [])
+
+      const { data: recent } = await supabase
+        .from('posts')
+        .select(`
+          *,
+          communities (
+            name,
+            slug
+          )
+        `)
+        .order('created_at', { ascending: false })
+        .limit(5)
+
+      setRecentPosts(recent || [])
     }
 
     loadCommunities()
@@ -72,6 +87,30 @@ export default function Home() {
           <h2 className="text-lg font-semibold">
             어떤 알바가 궁금한가요?
           </h2>
+          <section className="mt-8">
+            <h2 className="text-xl font-bold">최신 후기</h2>
+
+            <div className="mt-4 space-y-3">
+              {recentPosts.map((post) => (
+                <Link
+                  key={post.id}
+                  href={`/post/${post.id}`}
+                  className="block rounded-2xl bg-white p-4 shadow-sm hover:bg-gray-100"
+                >
+                  <div className="font-semibold">
+                    {post.title}
+                  </div>
+
+                  <div className="mt-1 text-sm text-gray-500">
+                    {post.communities?.name}
+                    {post.branch_name
+                      ? ` · ${post.branch_name}`
+                      : ''}
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
 
           <input
             value={keyword}
