@@ -74,6 +74,9 @@ export default async function CommunityPage({ params }: PageProps) {
                   className="block rounded-2xl bg-white p-4 shadow-sm"
                 >
                   <div className="font-semibold">{post.title}</div>
+                  <div className="mt-1 text-sm text-gray-500">
+                    {post.branch_name}
+                    </div>
                   <div className="mt-2 text-sm text-gray-500">
                     평점 {post.rating} · {post.shift_type} · {post.work_period}
                   </div>

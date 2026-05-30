@@ -33,6 +33,9 @@ export default async function PostPage({ params }: PageProps) {
 
         <article className="mt-5 rounded-2xl bg-white p-5 shadow-sm">
           <h1 className="text-2xl font-bold">{post.title}</h1>
+          <p className="mt-2 text-gray-500">
+            {post.branch_name}
+            </p>
 
           <div className="mt-4 flex flex-wrap gap-2 text-sm">
             <span className="rounded-full bg-gray-100 px-3 py-2">

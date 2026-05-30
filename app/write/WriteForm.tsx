@@ -8,9 +8,11 @@ export default function WriteForm() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const communitySlug = searchParams.get('community')
+  
 
   const [community, setCommunity] = useState<any>(null)
   const [title, setTitle] = useState('')
+  const [branchName, setBranchName] = useState('')
   const [rating, setRating] = useState('5')
   const [shiftType, setShiftType] = useState('오픈')
   const [workPeriod, setWorkPeriod] = useState('1개월 미만')
@@ -44,6 +46,7 @@ export default function WriteForm() {
       community_id: community.id,
       type: 'review',
       title,
+      branch_name: branchName,
       rating: Number(rating),
       shift_type: shiftType,
       work_period: workPeriod,
@@ -78,6 +81,16 @@ export default function WriteForm() {
               className="mt-2 w-full rounded-xl border bg-gray-100 px-4 py-3"
             />
           </div>
+          <div>
+            <label className="font-semibold">지점명</label>
+            <input
+                value={branchName}
+                onChange={(e) => setBranchName(e.target.value)}
+                required
+                placeholder="예: 강남역점, 홍대입구점"
+                className="mt-2 w-full rounded-xl border px-4 py-3"
+            />
+            </div>
 
           <div>
             <label className="font-semibold">제목</label>
