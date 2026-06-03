@@ -132,6 +132,35 @@ export default function Comments({ postId, postAuthorId }: Props) {
     loadComments()
   }
 
+  async function reportComment(commentId: string) {
+    const reason = prompt('댓글 신고 사유를 입력해주세요.')
+  
+    if (!reason?.trim()) return
+  
+    const {
+      data: { session },
+    } = await supabase.auth.getSession()
+  
+    if (!session) {
+      alert('로그인이 필요합니다.')
+      router.push('/login')
+      return
+    }
+  
+    const { error } = await supabase.from('reports').insert({
+      comment_id: commentId,
+      reporter_id: session.user.id,
+      reason,
+    })
+  
+    if (error) {
+      alert(error.message)
+      return
+    }
+  
+    alert('신고가 접수되었습니다.')
+  }
+
   async function deleteComment(commentId: string) {
     const ok = confirm('댓글을 삭제할까요?')
 
@@ -186,24 +215,37 @@ export default function Comments({ postId, postAuthorId }: Props) {
                   {anonymousNames.get(comment.author_id) || '익명'}
                 </div>
 
-                {isMine && !comment.is_deleted && !isEditing && (
-                  <div className="flex gap-2 text-sm">
+                <div className="flex gap-2 text-sm">
+                  {isMine && !comment.is_deleted && !isEditing && (
+                    <>
+                      <button
+                        type="button"
+                        onClick={() => startEdit(comment)}
+                        className="text-gray-700 underline"
+                      >
+                        수정
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => deleteComment(comment.id)}
+                        className="text-red-600 underline"
+                      >
+                        삭제
+                      </button>
+                    </>
+                  )}
+
+                  {!isMine && !comment.is_deleted && !isEditing && (
                     <button
                       type="button"
-                      onClick={() => startEdit(comment)}
-                      className="text-gray-700 underline"
+                      onClick={() => reportComment(comment.id)}
+                      className="text-red-500 underline"
                     >
-                      수정
+                      신고
                     </button>
-                    <button
-                      type="button"
-                      onClick={() => deleteComment(comment.id)}
-                      className="text-red-600 underline"
-                    >
-                      삭제
-                    </button>
-                  </div>
-                )}
+                  )}
+                </div>
               </div>
 
               {isEditing ? (
