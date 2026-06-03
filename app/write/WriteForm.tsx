@@ -4,11 +4,15 @@ import { useEffect, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 
+
 export default function WriteForm() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const communitySlug = searchParams.get('community')
-  
+
+  const [isLoading, setIsLoading] = useState(true)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
 
   const [community, setCommunity] = useState<any>(null)
   const [title, setTitle] = useState('')
@@ -35,7 +39,13 @@ export default function WriteForm() {
   }, [communitySlug])
 
   async function submitReview(e: React.FormEvent) {
+    
     e.preventDefault()
+    if (isSubmitting) return
+
+      setIsSubmitting(true)
+
+    
   
     const {
       data: { session },
@@ -51,6 +61,7 @@ export default function WriteForm() {
       alert('브랜드 정보를 찾을 수 없습니다.')
       return
     }
+
   
     const { error } = await supabase.from('posts').insert({
       community_id: community.id,
@@ -67,6 +78,7 @@ export default function WriteForm() {
     })
   
     if (error) {
+      setIsSubmitting(false)
       alert(error.message)
       console.error(error)
       return
@@ -186,8 +198,11 @@ export default function WriteForm() {
             />
           </div>
 
-          <button className="w-full rounded-xl bg-black py-3 font-semibold text-white">
-            후기 등록
+          <button
+            disabled={isSubmitting}
+            className="w-full rounded-xl bg-black py-3 font-semibold text-white disabled:opacity-50"
+          >
+            {isSubmitting ? '등록 중...' : '후기 등록'}
           </button>
         </form>
       </div>
