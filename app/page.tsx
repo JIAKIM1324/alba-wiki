@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabase'
+import AuthButton from './components/AuthButton'
 
 type Community = {
   id: string
@@ -78,10 +79,16 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-gray-50 px-5 py-8">
       <div className="mx-auto max-w-3xl">
-        <h1 className="text-3xl font-bold">알바위키</h1>
-        <p className="mt-2 text-gray-600">
-          알바하기 전에 보는 진짜 후기
-        </p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold">알바위키</h1>
+          <p className="mt-2 text-gray-600">
+            알바하기 전에 보는 진짜 후기
+          </p>
+        </div>
+
+        <AuthButton />
+      </div>
 
         <div className="mt-8 rounded-2xl bg-white p-5 shadow-sm">
           <h2 className="text-lg font-semibold">
