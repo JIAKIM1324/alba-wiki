@@ -94,7 +94,7 @@ export default function WriteForm() {
 
         <form
           onSubmit={submitReview}
-          className="mt-6 space-y-4 rounded-2xl bg-white p-5 shadow-sm"
+          className="mt-6 space-y-4 rounded-2xl bg-white p-5 shadow"
         >
           <div>
             <label className="font-semibold">브랜드</label>

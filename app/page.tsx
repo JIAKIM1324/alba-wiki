@@ -116,7 +116,7 @@ export default function Home() {
         <AuthButton />
       </div>
 
-        <div className="mt-8 rounded-2xl bg-white p-5 shadow-sm">
+        <div className="mt-8 rounded-2xl bg-white p-5 shadow">
           <h2 className="text-lg font-semibold">
             어떤 알바가 궁금한가요?
           </h2>
@@ -128,13 +128,13 @@ export default function Home() {
                 <Link
                   key={post.id}
                   href={`/post/${post.id}`}
-                  className="block rounded-2xl bg-white p-4 shadow-sm hover:bg-gray-100"
+                  className="block rounded-2xl bg-white p-4 shadow hover:bg-gray-100"
                 >
                   <div className="font-semibold">
                     {post.title}
                   </div>
 
-                  <div className="mt-1 text-sm text-gray-500">
+                  <div className="mt-1 text-sm text-gray-700">
                     {post.communities?.name}
                     {post.branch_name
                       ? ` · ${post.branch_name}`
@@ -164,17 +164,17 @@ export default function Home() {
                 <Link
                   key={community.id}
                   href={`/community/${community.slug}`}
-                  className="rounded-2xl bg-white p-4 shadow-sm hover:bg-gray-100"
+                  className="rounded-2xl bg-white p-4 shadow hover:bg-gray-100"
                 >
                   <div className="font-semibold">{community.name}</div>
 
-                  <div className="mt-2 flex gap-2 text-xs text-gray-500">
+                  <div className="mt-2 flex gap-2 text-xs text-gray-700">
                     <span>평점 {getAverageRating(community)}</span>
                     <span>·</span>
                     <span>후기 {community.posts?.length || 0}개</span>
                   </div>
 
-                  <div className="mt-2 text-sm text-gray-500">
+                  <div className="mt-2 text-sm text-gray-700">
                     후기 보러가기
                   </div>
 
@@ -196,7 +196,7 @@ export default function Home() {
                         })
                         .slice(0, 2)
                         .map((post) => (
-                          <div key={post.id} className="text-xs text-gray-500">
+                          <div key={post.id} className="text-xs text-gray-700">
                             관련 후기: {post.title}
                           </div>
                         ))}
@@ -205,7 +205,7 @@ export default function Home() {
                 </Link>
               ))
             ) : (
-              <div className="col-span-2 rounded-2xl bg-white p-5 text-gray-500 shadow-sm">
+              <div className="col-span-2 rounded-2xl bg-white p-5 text-gray-700 shadow">
                 검색 결과가 없습니다.
               </div>
             )}

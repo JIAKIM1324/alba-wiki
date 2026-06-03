@@ -40,11 +40,11 @@ export default async function CommunityPage({ params }: PageProps) {
   return (
     <main className="min-h-screen bg-gray-50 px-5 py-8">
       <div className="mx-auto max-w-3xl">
-        <Link href="/" className="text-sm text-gray-500">
+        <Link href="/" className="text-sm text-gray-700">
           ← 홈으로
         </Link>
 
-        <section className="mt-5 rounded-2xl bg-white p-5 shadow-sm">
+        <section className="mt-5 rounded-2xl bg-white p-5 shadow">
           <h1 className="text-3xl font-bold">{community.name}</h1>
 
           <div className="mt-4 flex gap-3 text-sm">

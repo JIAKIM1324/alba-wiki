@@ -27,14 +27,14 @@ export default async function PostPage({ params }: PageProps) {
       <div className="mx-auto max-w-2xl">
         <Link
           href={`/community/${post.communities.slug}`}
-          className="text-sm text-gray-500"
+          className="text-sm text-gray-700"
         >
           ← {post.communities.name}으로 돌아가기
         </Link>
 
-        <article className="mt-5 rounded-2xl bg-white p-5 shadow-sm">
+        <article className="mt-5 rounded-2xl bg-white p-5 shadow">
           <h1 className="text-2xl font-bold">{post.title}</h1>
-          <p className="mt-2 text-gray-500">
+          <p className="mt-2 text-gray-700">
             {post.branch_name}
             </p>
 

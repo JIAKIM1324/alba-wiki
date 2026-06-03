@@ -38,11 +38,11 @@ export default function CommunityPosts({ posts }: { posts: any[] }) {
             <Link
               key={post.id}
               href={`/post/${post.id}`}
-              className="block rounded-2xl bg-white p-4 shadow-sm hover:bg-gray-100"
+              className="block rounded-2xl bg-white p-4 shadow hover:bg-gray-100"
             >
               <div className="font-semibold">{post.title}</div>
 
-              <div className="mt-2 text-sm text-gray-500">
+              <div className="mt-2 text-sm text-gray-700">
                 {post.branch_name || '지점명 없음'} · 평점 {post.rating} ·{' '}
                 {post.shift_type} · {post.work_period}
               </div>
@@ -53,7 +53,7 @@ export default function CommunityPosts({ posts }: { posts: any[] }) {
             </Link>
           ))
         ) : (
-          <div className="rounded-2xl bg-white p-5 text-gray-500 shadow-sm">
+          <div className="rounded-2xl bg-white p-5 text-gray-700 shadow">
             검색 결과가 없습니다.
           </div>
         )}

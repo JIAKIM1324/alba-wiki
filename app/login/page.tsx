@@ -14,7 +14,7 @@ export default function LoginPage() {
 
   return (
     <main className="min-h-screen bg-gray-50 px-5 py-8">
-      <div className="mx-auto max-w-md rounded-2xl bg-white p-6 shadow-sm">
+      <div className="mx-auto max-w-md rounded-2xl bg-white p-6 shadow">
         <h1 className="text-3xl font-bold">로그인</h1>
 
         <p className="mt-2 text-gray-600">

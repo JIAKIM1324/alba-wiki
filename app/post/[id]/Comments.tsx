@@ -84,7 +84,7 @@ export default function Comments({ postId, postAuthorId }: Props) {
   }
 
   return (
-    <section className="mt-6 rounded-2xl bg-white p-5 shadow-sm">
+    <section className="mt-6 rounded-2xl bg-white p-5 shadow">
       <h2 className="text-xl font-bold">댓글 {comments.length}개</h2>
 
       <form onSubmit={submitComment} className="mt-4">
