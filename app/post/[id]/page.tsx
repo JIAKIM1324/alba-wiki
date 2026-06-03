@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 import Comments from './Comments'
 import PostActions from './PostActions'
+import ReportButton from './ReportButton'
 
 type PageProps = {
   params: Promise<{
@@ -81,6 +82,9 @@ export default async function PostPage({ params }: PageProps) {
           </section>
           <PostActions postId={post.id} authorId={post.author_id} />
         </article>
+        <div className="mt-4 flex justify-end">
+          <ReportButton postId={post.id} />
+        </div>
         <Comments postId={post.id} postAuthorId={post.author_id} />
       </div>
     </main>
