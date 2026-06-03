@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
+import Comments from './Comments'
 
 type PageProps = {
   params: Promise<{
@@ -70,6 +71,7 @@ export default async function PostPage({ params }: PageProps) {
             </p>
           </section>
         </article>
+        <Comments postId={post.id} postAuthorId={post.author_id} />
       </div>
     </main>
   )
