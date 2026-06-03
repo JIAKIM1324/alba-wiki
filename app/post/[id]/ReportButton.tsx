@@ -21,13 +21,11 @@ export default function ReportButton({ postId }: Props) {
       return
     }
 
-    const { error } = await supabase
-      .from('reports')
-      .insert({
-        post_id: postId,
-        reporter_id: session.user.id,
-        reason,
-      })
+    const { error } = await supabase.from('reports').insert({
+      post_id: postId,
+      reporter_id: session.user.id,
+      reason,
+    })
 
     if (error) {
       alert(error.message)
@@ -39,8 +37,9 @@ export default function ReportButton({ postId }: Props) {
 
   return (
     <button
+      type="button"
       onClick={reportPost}
-      className="text-sm text-red-600 underline"
+      className="rounded-full border border-red-200 bg-white px-3 py-2 text-sm text-red-600 shadow-sm"
     >
       🚩 신고하기
     </button>
