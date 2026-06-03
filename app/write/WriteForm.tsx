@@ -36,14 +36,25 @@ export default function WriteForm() {
 
   async function submitReview(e: React.FormEvent) {
     e.preventDefault()
-
+  
+    const {
+      data: { session },
+    } = await supabase.auth.getSession()
+  
+    if (!session) {
+      alert('로그인이 필요합니다.')
+      router.push('/login')
+      return
+    }
+  
     if (!community) {
       alert('브랜드 정보를 찾을 수 없습니다.')
       return
     }
-
+  
     const { error } = await supabase.from('posts').insert({
       community_id: community.id,
+      author_id: session.user.id,
       type: 'review',
       title,
       branch_name: branchName,
@@ -54,13 +65,13 @@ export default function WriteForm() {
       cons,
       content,
     })
-
+  
     if (error) {
       alert(error.message)
       console.error(error)
       return
     }
-
+  
     router.push(`/community/${community.slug}`)
   }
 
