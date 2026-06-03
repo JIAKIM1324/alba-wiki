@@ -38,7 +38,7 @@ export default function AuthButton() {
   return (
     <div className="flex items-center gap-3">
       <span className="text-sm text-gray-600">
-        {user.email}
+        익명 회원
       </span>
 
       <button
