@@ -240,7 +240,7 @@ export default function Comments({ postId, postAuthorId }: Props) {
                     <button
                       type="button"
                       onClick={() => reportComment(comment.id)}
-                      className="text-red-500 underline"
+                      className="text-gray-500 underline hover:text-red-500"
                     >
                       신고
                     </button>
