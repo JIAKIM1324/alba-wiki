@@ -7,6 +7,12 @@ export default function WritePage() {
     <Suspense fallback={<main className="p-6">로딩 중...</main>}>
       <main className="min-h-screen bg-gray-50 px-5 py-8">
         <div className="mx-auto max-w-2xl">
+              <Link
+          href="/"
+          className="mb-4 inline-block text-sm text-gray-700 hover:text-black"
+        >
+          ← 홈으로 돌아가기
+        </Link>
           <div className="mb-5 rounded-2xl border border-yellow-200 bg-yellow-50 p-4 text-sm text-gray-800">
             <h2 className="font-bold">📢 알바위키 이용 안내</h2>
 
