@@ -5,14 +5,22 @@ import { useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabase'
 import AuthButton from './components/AuthButton'
 
+type Post = {
+  id: string
+  title: string
+  content: string
+  branch_name: string | null
+  pros: string | null
+  cons: string | null
+  rating: number | null
+}
+
 type Community = {
   id: string
   slug: string
   name: string
   description: string | null
-  posts?: {
-    rating: number | null
-  }[]
+  posts?: Post[]
 }
 
 export default function Home() {
@@ -27,6 +35,12 @@ export default function Home() {
         .select(`
           *,
           posts (
+            id,
+            title,
+            content,
+            branch_name,
+            pros,
+            cons,
             rating
           )
         `)
@@ -53,19 +67,31 @@ export default function Home() {
   }, [])
 
   const filteredCommunities =
-    keyword.trim() === ''
-      ? communities
-      : communities.filter((community) => {
-          const searchText = [
-            community.name,
-            community.slug,
-            community.description || '',
-          ]
-            .join(' ')
-            .toLowerCase()
+  keyword.trim() === ''
+    ? communities
+    : communities.filter((community) => {
+        const communityText = [
+          community.name,
+          community.slug,
+          community.description || '',
+        ].join(' ')
 
-          return searchText.includes(keyword.trim().toLowerCase())
-        })
+        const postText = community.posts
+          ?.map((post) =>
+            [
+              post.title,
+              post.content,
+              post.branch_name || '',
+              post.pros || '',
+              post.cons || '',
+            ].join(' ')
+          )
+          .join(' ')
+
+        const searchText = `${communityText} ${postText}`.toLowerCase()
+
+        return searchText.includes(keyword.trim().toLowerCase())
+      })
 
   function getAverageRating(community: Community) {
     const posts = community.posts || []
@@ -151,6 +177,31 @@ export default function Home() {
                   <div className="mt-2 text-sm text-gray-500">
                     후기 보러가기
                   </div>
+
+                  {keyword.trim() && (
+                    <div className="mt-3 space-y-1">
+                      {community.posts
+                        ?.filter((post) => {
+                          const text = [
+                            post.title,
+                            post.content,
+                            post.branch_name || '',
+                            post.pros || '',
+                            post.cons || '',
+                          ]
+                            .join(' ')
+                            .toLowerCase()
+
+                          return text.includes(keyword.trim().toLowerCase())
+                        })
+                        .slice(0, 2)
+                        .map((post) => (
+                          <div key={post.id} className="text-xs text-gray-500">
+                            관련 후기: {post.title}
+                          </div>
+                        ))}
+                    </div>
+                  )}
                 </Link>
               ))
             ) : (

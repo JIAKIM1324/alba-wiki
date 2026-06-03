@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 import WriteButton from './WriteButton'
+import CommunityPosts from './CommunityPosts'
 
 type PageProps = {
   params: Promise<{
@@ -61,32 +62,7 @@ export default async function CommunityPage({ params }: PageProps) {
         <section className="mt-8">
           <h2 className="text-xl font-bold">후기 목록</h2>
 
-          <div className="mt-4 space-y-3">
-            {posts && posts.length > 0 ? (
-              posts.map((post) => (
-                <Link
-                  key={post.id}
-                  href={`/post/${post.id}`}
-                  className="block rounded-2xl bg-white p-4 shadow-sm"
-                >
-                  <div className="font-semibold">{post.title}</div>
-                  <div className="mt-1 text-sm text-gray-500">
-                    {post.branch_name}
-                    </div>
-                  <div className="mt-2 text-sm text-gray-500">
-                    평점 {post.rating} · {post.shift_type} · {post.work_period}
-                  </div>
-                  <p className="mt-3 line-clamp-2 text-sm text-gray-600">
-                    {post.content}
-                  </p>
-                </Link>
-              ))
-            ) : (
-              <div className="rounded-2xl bg-white p-5 text-gray-500 shadow-sm">
-                아직 후기가 없습니다. 첫 후기를 남겨주세요.
-              </div>
-            )}
-          </div>
+          <CommunityPosts posts={posts || []} />
         </section>
       </div>
     </main>
