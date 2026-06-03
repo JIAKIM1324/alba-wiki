@@ -9,10 +9,14 @@ type PageProps = {
   params: Promise<{
     id: string
   }>
+  searchParams: Promise<{
+    from?: string
+  }>
 }
 
-export default async function PostPage({ params }: PageProps) {
+export default async function PostPage({ params, searchParams }: PageProps) {
   const { id } = await params
+  const { from } = await searchParams
 
   const { data: post } = await supabase
     .from('posts')
@@ -27,12 +31,12 @@ export default async function PostPage({ params }: PageProps) {
   return (
     <main className="min-h-screen bg-gray-50 px-5 py-8">
       <div className="mx-auto max-w-2xl">
-        <Link
-          href={`/community/${post.communities.slug}`}
-          className="text-sm text-gray-700"
-        >
-          ← {post.communities.name}으로 돌아가기
-        </Link>
+      <Link
+        href={from === 'mypage' ? '/mypage' : `/community/${post.communities.slug}`}
+        className="text-sm text-gray-700"
+      >
+        ← {from === 'mypage' ? '내 후기 목록' : `${post.communities.name}으로 돌아가기`}
+      </Link>
 
         <article className="mt-5 rounded-2xl bg-white p-5 shadow">
           <h1 className="text-2xl font-bold">{post.title}</h1>

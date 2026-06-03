@@ -49,7 +49,16 @@ export default function MyPage() {
   return (
     <main className="min-h-screen bg-gray-50 px-5 py-8">
       <div className="mx-auto max-w-2xl">
-        <h1 className="text-2xl font-bold text-gray-900">내가 쓴 후기</h1>
+        <Link
+            href="/"
+            className="text-sm text-gray-700"
+        >
+            ← 홈으로 돌아가기
+        </Link>
+
+        <h1 className="mt-4 text-2xl font-bold text-gray-900">
+            내가 쓴 후기
+        </h1>
 
         <div className="mt-5 space-y-3">
           {posts.length === 0 ? (
@@ -60,7 +69,7 @@ export default function MyPage() {
             posts.map((post) => (
               <Link
                 key={post.id}
-                href={`/post/${post.id}`}
+                href={`/post/${post.id}?from=mypage`}
                 className="block rounded-2xl bg-white p-5 shadow"
               >
                 <div className="font-bold text-gray-900">{post.title}</div>
