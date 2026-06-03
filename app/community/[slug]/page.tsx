@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
+import WriteButton from './WriteButton'
 
 type PageProps = {
   params: Promise<{
@@ -54,12 +55,7 @@ export default async function CommunityPage({ params }: PageProps) {
             </div>
           </div>
 
-          <Link
-            href={`/write?community=${community.slug}`}
-            className="mt-5 block rounded-xl bg-black px-4 py-3 text-center font-semibold text-white"
-          >
-            후기 작성하기
-          </Link>
+          <WriteButton slug={community.slug} />
         </section>
 
         <section className="mt-8">
