@@ -47,6 +47,8 @@ export default function AuthButton() {
       >
         로그아웃
       </button>
+
+      <Link href="/mypage">내 후기</Link>
     </div>
   )
 }

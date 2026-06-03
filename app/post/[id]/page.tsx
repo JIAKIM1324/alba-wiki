@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 import Comments from './Comments'
+import PostActions from './PostActions'
 
 type PageProps = {
   params: Promise<{
@@ -34,9 +35,17 @@ export default async function PostPage({ params }: PageProps) {
 
         <article className="mt-5 rounded-2xl bg-white p-5 shadow">
           <h1 className="text-2xl font-bold">{post.title}</h1>
+
+          {post.updated_at &&
+            post.updated_at !== post.created_at && (
+              <p className="mt-1 text-xs text-gray-400">
+                수정됨
+              </p>
+          )}
+
           <p className="mt-2 text-gray-700">
             {post.branch_name}
-            </p>
+          </p>
 
           <div className="mt-4 flex flex-wrap gap-2 text-sm">
             <span className="rounded-full bg-gray-100 px-3 py-2">
@@ -70,6 +79,7 @@ export default async function PostPage({ params }: PageProps) {
               {post.content}
             </p>
           </section>
+          <PostActions postId={post.id} authorId={post.author_id} />
         </article>
         <Comments postId={post.id} postAuthorId={post.author_id} />
       </div>

@@ -11,12 +11,14 @@ type Comment = {
   content: string
   is_deleted: boolean
   created_at: string
+  updated_at: string | null
 }
 
 type Props = {
   postId: string
   postAuthorId: string | null
 }
+
 
 export default function Comments({ postId, postAuthorId }: Props) {
   const router = useRouter()
@@ -230,15 +232,25 @@ export default function Comments({ postId, postAuthorId }: Props) {
                   </div>
                 </div>
               ) : (
-                <p
-                  className={`mt-2 whitespace-pre-wrap ${
-                    comment.is_deleted
-                      ? 'text-gray-500'
-                      : 'text-gray-800'
-                  }`}
-                >
-                  {comment.content}
-                </p>
+                <div className="mt-2">
+                  <p
+                    className={`whitespace-pre-wrap ${
+                      comment.is_deleted
+                        ? 'text-gray-500'
+                        : 'text-gray-800'
+                    }`}
+                  >
+                    {comment.content}
+                  </p>
+
+                  {!comment.is_deleted &&
+                    comment.updated_at &&
+                    comment.updated_at !== comment.created_at && (
+                      <span className="mt-1 block text-xs italic text-gray-400">
+                        수정됨
+                      </span>
+                    )}
+                </div>
               )}
             </div>
           )
