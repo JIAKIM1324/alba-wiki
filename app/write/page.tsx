@@ -1,5 +1,6 @@
 import { Suspense } from 'react'
 import WriteForm from './WriteForm'
+import Link from 'next/link'
 
 export default function WritePage() {
   return (
